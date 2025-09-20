@@ -9,8 +9,15 @@ API_KEY = os.getenv("ROBLOX_API_KEY")
 @app.route("/datastores")
 def list_datastores():
     # get universe id from query parameter, fallback to default env variable
+    print("atleast we here no ?")
     url = f"https://apis.roblox.com/datastores/v1/universes/{universe_id}/universe-datastores"
     headers = {"x-api-key": API_KEY}
+    universe_id = request.args.get("uid", os.getenv("UNIVERSE_ID"))
+    print("Requested uid:", universe_id)
+    print("Request URL:", url)
+    
+    if not universe_id:
+        return jsonify({"error": "No universe ID provided"}), 400
 
     try:
         response = requests.get(url, headers=headers)
