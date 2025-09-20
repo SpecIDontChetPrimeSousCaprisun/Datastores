@@ -6,9 +6,12 @@ app = Flask(__name__)
 
 API_KEY = os.getenv("ROBLOX_API_KEY")
 
+print("aa")
+
 @app.route("/datastores")
 def list_datastores():
     # get universe id from query parameter, fallback to default env variable
+    print("a")
     universe_id = request.args.get("uid", os.getenv("UNIVERSE_ID"))
     
     print("Requested uid:", universe_id)
@@ -36,9 +39,11 @@ def list_datastores():
 
 @app.route("/")
 def home():
+    print("aaa")
     return "✅ Roblox Datastore API is running!"
 
 if __name__ == "__main__":
     # Local testing only
+    print("legit wtf")
     app.run(host="127.0.0.1", port=3000, debug=True)
 
