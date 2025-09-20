@@ -15,6 +15,8 @@ def list_datastores():
     if not universe_id:
         return jsonify({"error": "No universe ID provided"}), 400
 
+    print("checking " + universe_id)
+    
     url = f"https://apis.roblox.com/datastores/v1/universes/{universe_id}/universe-datastores"
     headers = {"x-api-key": API_KEY}
 
