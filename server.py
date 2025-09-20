@@ -1,31 +1,35 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import requests
 import os
 
 app = Flask(__name__)
 
 API_KEY = os.getenv("ROBLOX_API_KEY")
-UNIVERSE_ID = os.getenv("UNIVERSE_ID")
 
 @app.route("/datastores")
 def list_datastores():
+    # get universe id from query parameter, fallback to default env variable
+    universe_id = request.args.get("uid", os.getenv("UNIVERSE_ID"))
+    if not universe_id:
+        return jsonify({"error": "No universe ID provided"}), 400
+
+    url = f"https://apis.roblox.com/datastores/v1/universes/{universe_id}/universe-datastores"
+    headers = {"x-api-key": API_KEY}
+
     try:
-        print("a")
-        url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/standard-datastores"
-        print("b")
-        headers = { "x-api-key": os.getenv("ROBLOX_API_KEY") }
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         return jsonify(response.json())
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    except requests.exceptions.RequestException as e:
+        # detailed error reporting
+        if e.response is not None:
+            return jsonify({
+                "error": f"{e.response.status_code} {e.response.reason}",
+                "text": e.response.text
+            }), 500
+        else:
+            return jsonify({"error": str(e)}), 500
 
 @app.route("/")
 def home():
     return "✅ Roblox Datastore API is running!"
-
-if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 3000))
-    debug_mode = os.environ.get("DEBUG", "false").lower() == "true"
-    app.run(host="0.0.0.0", port=port, debug=debug_mode)
