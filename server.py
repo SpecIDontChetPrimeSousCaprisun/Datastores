@@ -11,7 +11,7 @@ UNIVERSE_ID = os.getenv("UNIVERSE_ID")
 def list_datastores():
     try:
         print("a")
-        url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/standard-datastores"
+        url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/universe-datastores"
         print("b")
         headers = {"x-api-key": API_KEY}
         response = requests.get(url, headers=headers)
