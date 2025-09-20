@@ -9,14 +9,6 @@ API_KEY = os.getenv("ROBLOX_API_KEY")
 @app.route("/datastores")
 def list_datastores():
     # get universe id from query parameter, fallback to default env variable
-    print("a")
-    universe_id = request.args.get("uid", os.getenv("UNIVERSE_ID"))
-    
-    print("Requested uid:", universe_id)
-    
-    if not universe_id:
-        return jsonify({"error": "No universe ID provided"}), 400
-
     url = f"https://apis.roblox.com/datastores/v1/universes/{universe_id}/universe-datastores"
     headers = {"x-api-key": API_KEY}
     print("Request URL:", url)
@@ -37,6 +29,9 @@ def list_datastores():
 
 @app.route("/")
 def home():
-    print("aaa")
+    
     return "✅ Roblox Datastore API is running!"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=3000, debug=True)
 
