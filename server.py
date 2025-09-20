@@ -11,7 +11,7 @@ UNIVERSE_ID = os.getenv("UNIVERSE_ID")
 def list_datastores():
     try:
         print("a")
-        url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/universe-datastores"
+        url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/standard-datastores"
         print("b")
         headers = {"x-api-key": API_KEY}
         response = requests.get(url, headers=headers)
@@ -26,6 +26,6 @@ if __name__ == "__main__":
     debug_mode = os.environ.get("DEBUG", "false").lower() == "true"
     app.run(host="0.0.0.0", port=port, debug=debug_mode)
 
-@app.route("/datastores")
+@app.route("/")
 def home():
     return "✅ Roblox Datastore API is running!"
