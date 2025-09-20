@@ -25,14 +25,13 @@ def list_datastores():
         response.raise_for_status()
         return jsonify(response.json())
     except requests.exceptions.RequestException as e:
-        # Detailed error reporting
-        if e.response is not None:
-            return jsonify({
-                "error": f"{e.response.status_code} {e.response.reason}",
-                "text": e.response.text
-            }), 500
-        else:
-            return jsonify({"error": str(e)}), 500
+    if e.response is not None:
+        return jsonify({
+            "error": f"{e.response.status_code} {e.response.reason}",
+            "text": e.response.text
+        }), e.response.status_code  # ← return Roblox status
+    else:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/")
 def home():
