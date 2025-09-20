@@ -40,8 +40,3 @@ def home():
     print("aaa")
     return "✅ Roblox Datastore API is running!"
 
-if __name__ == "__main__":
-    # Local testing only
-    print("legit wtf")
-    app.run(host="127.0.0.1", port=3000, debug=True)
-
