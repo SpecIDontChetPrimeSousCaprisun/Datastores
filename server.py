@@ -5,12 +5,12 @@ import os
 app = Flask(__name__)
 
 API_KEY = os.getenv("ROBLOX_API_KEY")
-universe_id = os.getenv("UNIVERSE_ID")
+UNIVERSE_ID = os.getenv("UNIVERSE_ID")
 
 @app.route("/datastores")
 def list_datastores():
     # get universe id from query parameter, fallback to default env variable
-    url = f"https://apis.roblox.com/datastores/v1/universes/{universe_id}/universe-datastores"
+    url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/universe-datastores"
     headers = {"x-api-key": API_KEY}
     print("Request URL:", url)
     
