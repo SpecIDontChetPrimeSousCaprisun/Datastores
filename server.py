@@ -26,6 +26,6 @@ if __name__ == "__main__":
     debug_mode = os.environ.get("DEBUG", "false").lower() == "true"
     app.run(host="0.0.0.0", port=port, debug=debug_mode)
 
-@app.route("/")
+@app.route("/datastores")
 def home():
     return "✅ Roblox Datastore API is running!"
