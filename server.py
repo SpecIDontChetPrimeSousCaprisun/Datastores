@@ -13,7 +13,7 @@ def list_datastores():
         print("a")
         url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/standard-datastores"
         print("b")
-        headers = {"x-api-key": API_KEY}
+        headers = { "x-api-key": os.getenv("ROBLOX_API_KEY") }
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         return jsonify(response.json())
