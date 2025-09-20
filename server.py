@@ -10,6 +10,8 @@ API_KEY = os.getenv("ROBLOX_API_KEY")
 def list_datastores():
     # get universe id from query parameter, fallback to default env variable
     universe_id = request.args.get("uid", os.getenv("UNIVERSE_ID"))
+    print("Requested uid:", universe_id)
+    print("Request URL:", url)
     if not universe_id:
         return jsonify({"error": "No universe ID provided"}), 400
 
