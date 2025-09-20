@@ -18,6 +18,12 @@ def list_datastores():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 3000))
+    debug_mode = os.environ.get("DEBUG", "false").lower() == "true"
+    app.run(host="0.0.0.0", port=port, debug=debug_mode)
+
 @app.route("/")
 def home():
     return "✅ Roblox Datastore API is running!"
