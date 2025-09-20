@@ -23,5 +23,7 @@ def list_datastores():
 
 if __name__ == "__main__":
     import os
-    port = int(os.environ.get("PORT", 3000))  # Railway provides $PORT
-    app.run(host="0.0.0.0", port=port, debug=True)
+    port = int(os.environ.get("PORT", 3000))
+    # turn off debug for Railway
+    debug_mode = os.environ.get("DEBUG", "false").lower() == "true"
+    app.run(host="0.0.0.0", port=port, debug=debug_mode)
