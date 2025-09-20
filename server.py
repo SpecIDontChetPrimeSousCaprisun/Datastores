@@ -6,8 +6,6 @@ app = Flask(__name__)
 
 API_KEY = os.getenv("ROBLOX_API_KEY")
 
-print("aa")
-
 @app.route("/datastores")
 def list_datastores():
     # get universe id from query parameter, fallback to default env variable
