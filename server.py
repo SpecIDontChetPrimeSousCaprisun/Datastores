@@ -9,14 +9,14 @@ DEFAULT_UNIVERSE_ID = os.getenv("UNIVERSE_ID")
 
 @app.route("/datastores")
 def list_datastores():
-    universe_id = request.args.get("uid", DEFAULT_UNIVERSE_ID)
+    UNIVERSE_ID = request.args.get("uid", DEFAULT_UNIVERSE_ID)
     
     if not universe_id:
         return jsonify({"error": "No universe ID provided"}), 400
 
     print(f"checking https://apis.roblox.com/datastores/v1/universes/{universe_id}/universe-datastores")
     
-    url = f"https://apis.roblox.com/datastores/v1/universes/{universe_id}/universe-datastores"
+    url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/universe-datastores"
     headers = {"x-api-key": API_KEY}
 
     try:
