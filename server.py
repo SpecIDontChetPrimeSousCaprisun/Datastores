@@ -9,6 +9,8 @@ API_KEY = os.getenv("ROBLOX_API_KEY")
 UNIVERSE_ID = os.getenv("UNIVERSE_ID")
 
 @app.route("/datastores")
+def home():
+    return "✅ Roblox Datastore API is running!"
 def list_datastores():
     try:
         url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/standard-datastores"
