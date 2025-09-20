@@ -9,15 +9,14 @@ DEFAULT_UNIVERSE_ID = os.getenv("UNIVERSE_ID")
 
 @app.route("/datastores")
 def list_datastores():
-    # get universe id from query parameter, fallback to default env variable
     universe_id = request.args.get("uid", DEFAULT_UNIVERSE_ID)
     
     if not universe_id:
         return jsonify({"error": "No universe ID provided"}), 400
 
-    print(f"checking https://apis.roblox.com/datastores/v1/universes/{DEFAULT_UNIVERSE_ID}/universe-datastores")
+    print(f"checking https://apis.roblox.com/datastores/v1/universes/{universe_id}/universe-datastores")
     
-    url = f"https://apis.roblox.com/datastores/v1/universes/{DEFAULT_UNIVERSE_ID}/universe-datastores"
+    url = f"https://apis.roblox.com/datastores/v1/universes/{universe_id}/universe-datastores"
     headers = {"x-api-key": API_KEY}
 
     try:
@@ -25,13 +24,13 @@ def list_datastores():
         response.raise_for_status()
         return jsonify(response.json())
     except requests.exceptions.RequestException as e:
-    if e.response is not None:
-        return jsonify({
-            "error": f"{e.response.status_code} {e.response.reason}",
-            "text": e.response.text
-        }), e.response.status_code  # ← return Roblox status
-    else:
-        return jsonify({"error": str(e)}), 500
+        if e.response is not None:
+            return jsonify({
+                "error": f"{e.response.status_code} {e.response.reason}",
+                "text": e.response.text
+            }), e.response.status_code
+        else:
+            return jsonify({"error": str(e)}), 500
 
 @app.route("/")
 def home():
