@@ -11,7 +11,7 @@ DEFAULT_UNIVERSE_ID = os.getenv("UNIVERSE_ID")
 def list_datastores():
     UNIVERSE_ID = request.args.get("uid", DEFAULT_UNIVERSE_ID)
     
-    if not universe_id:
+    if not UNIVERSE_ID:
         return jsonify({"error": "No universe ID provided"}), 400
 
     print(f"checking https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/universe-datastores")
